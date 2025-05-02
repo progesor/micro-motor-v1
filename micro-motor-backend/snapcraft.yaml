@@ -1,0 +1,27 @@
+name: micro-motor-backend      # 2. adımda register ettiğiniz isim
+version: '0.1.0'               # SemVer formatında sürüm
+summary: Micro Motor Backend   # kısa açıklama (< 80 karakter)
+description: |
+  Dokunmatik ekranlı Raspberry Pi 5 için
+  micro-motor kontrol backend’i.
+base: core24                   # Ubuntu Core 24 tabanı
+confinement: strict            # “strict” önerilir (sadece izin verilen plugs)
+grade: stable                  # “stable” = üretim
+
+parts:
+  backend:
+    plugin: nodejs
+    source: .                  # kodunuzun olduğu klasör
+    node-engine: '20.0.0'
+    stage-packages:
+      - libgpiod2              # eğer libgpiod kullanıyorsanız
+
+apps:
+  micro-motor:
+    command: node dist/server.js    # veya dist/server.js (derlenmiş JS)
+    daemon: simple                 # snap yüklendiğinde otomatik başlat
+    restart-condition: always
+    plugs:
+      - gpio       # motor kontrol için
+      - network    # WebSocket/API için
+      - home       # opsiyonel: config dosyalarınız için
