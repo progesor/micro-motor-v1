@@ -11,14 +11,14 @@ grade: stable                  # “stable” = üretim
 parts:
   backend:
     plugin: nodejs
-    source: .                  # kodunuzun olduğu klasör
+    source: micro-motor-backend                  # kodunuzun olduğu klasör
     node-engine: '20.0.0'
     stage-packages:
       - libgpiod2              # eğer libgpiod kullanıyorsanız
 
 apps:
   micro-motor:
-    command: node dist/server.js    # veya dist/server.js (derlenmiş JS)
+    command: node micro-motor-backend/dist/server.js    # veya dist/server.js (derlenmiş JS)
     daemon: simple                 # snap yüklendiğinde otomatik başlat
     restart-condition: always
     plugs:
