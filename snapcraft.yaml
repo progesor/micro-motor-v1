@@ -18,7 +18,7 @@ parts:
 
 apps:
   micro-motor:
-    command: node micro-motor-backend/dist/server.js    # veya dist/server.js (derlenmiş JS)
+    command: node dist/server.js    # veya dist/server.js (derlenmiş JS)
     daemon: simple                 # snap yüklendiğinde otomatik başlat
     restart-condition: always
     plugs:
